@@ -36,7 +36,6 @@ router.route('/').get((req, res) => {
 // });
 
 // ...
-
 router.route('/').post(async (req, res) => {
   try {
     const { prompt } = req.body;
@@ -48,6 +47,8 @@ router.route('/').post(async (req, res) => {
       response_format: 'b64_json',
     });
 
+    console.log('AI Response:', aiResponse.data);
+
     const image = aiResponse.data.data[0].b64_json;
     res.status(200).json({ photo: image });
   } catch (error) {
@@ -55,6 +56,5 @@ router.route('/').post(async (req, res) => {
     res.status(500).send(error?.response.data.error.message || 'Something went wrong');
   }
 });
-
 
 export default router;
